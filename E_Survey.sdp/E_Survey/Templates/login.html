@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(45deg, #3498db, #2ecc71);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transform: perspective(1000px) rotateY(10deg);
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .container:hover {
+      transform: perspective(1000px) rotateY(0);
+    }
+
+    h3 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <h1>E SURVEY WEB APPLICATION</h1>
+  <div id="loginContainer" class="container">
+    <h3>Login</h3>
+    <label for="username">Username:</label>
+    <input type="text" id="username" placeholder="Enter username">
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Enter password">
+
+    <label for="captcha">CAPTCHA: <span id="captcha"></span></label>
+    <input type="text" id="enteredCaptcha" placeholder="Enter CAPTCHA">
+
+    <button onclick="handleLogin()">Login</button>
+  </div>
+
+  <script>
+    function generateCaptcha() {
+      const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      let captcha = '';
+      for (let i = 0; i < 5; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        captcha += characters.charAt(randomIndex);
+      }
+      document.getElementById('captcha').textContent = captcha;
+    }
+
+    function handleLogin() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const enteredCaptcha = document.getElementById('enteredCaptcha').value;
+      const generatedCaptcha = document.getElementById('captcha').textContent;
+
+      if (username && password && enteredCaptcha === generatedCaptcha) {
+        alert('Login successful!');
+        // Redirect to the navigation bar page after successful login
+        window.location.href = 'home'; // Change 'navbar.html' to the actual file you want to navigate to
+      } else {
+        alert('Invalid username, password, or CAPTCHA. Please try again.');
+        generateCaptcha(); // Regenerate a new CAPTCHA for another attempt
+      }
+    }
+
+    // Call generateCaptcha() when the page loads
+    window.onload = generateCaptcha;
+  </script>
+</body>
+</html>
